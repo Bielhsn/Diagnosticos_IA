@@ -216,10 +216,7 @@ A Inteligência Artificial deve ser encarada como uma **ferramenta de suporte ao
 6.  **Use os Notebooks:**
     * Na interface do Jupyter, navegue até `notebooks/`, abra os `.ipynb` e execute as células.
 
-## 9. Vídeo de Apresentação
+## 9. Contato
 
-Link: 
-
-## 10. Contato
-
-Gabriel Henrique Souza - gabrielhenrique.hsn@gmail.com
+[![Linkedin](https://img.shields.io/badge/-Linkedin-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/gabriel-henrique-2631931b2/)](https://www.linkedin.com/in/gabriel-henrique-2631931b2/)
+[![Gmail Badge](https://img.shields.io/badge/-Email-006bed?style=flat-square&logo=Gmail&logoColor=white&link=mailto:gabrielhenrique.hsn@gmail.com)](mailto:gabrielhenrique.hsn@gmail.com)
