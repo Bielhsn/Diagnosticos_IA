@@ -100,7 +100,8 @@ A seguir, um resumo executivo dos principais achados e discussões críticas par
 
 ### 5.1. Diagnóstico da Doença de Parkinson
 
-* **Desempenho:** Os modelos apresentaram desempenho baixo (Random Forest: Acurácia ~0.55, Recall ~0.51, F1-Score ~0.55, AUC-ROC ~0.60).
+* **Desempenho:** Os modelos demonstraram desempenho baixo (Random Forest: Acurácia ~0.55, Recall ~0.51, F1-Score ~0.55, AUC-ROC ~0.60).
+  
   ![Matriz de Confusão AD Parkinson](images/arvore_decisao_Park.png)
   ![Matriz de Confusão RF Parkinson](images/random_forest_Park.png)
   ![Matriz de Confusão RL Parkinson](images/regressao_logistica_Park.png)
@@ -111,7 +112,7 @@ A seguir, um resumo executivo dos principais achados e discussões críticas par
 
 ### 5.2. Diagnóstico de Doença Cardíaca
 
-* **Desempenho:** Os modelos demonstraram um desempenho promissor, com a **Regressão Logística** se destacando (Acurácia ~0.87, Precisão ~0.81, **Recall ~0.92**, F1-Score ~0.86, AUC-ROC ~0.90). O Recall alto é crucial para este contexto.
+* **Desempenho:** Os modelos demonstraram desempenho promissor, com a **Regressão Logística** se destacando (Acurácia ~0.87, Precisão ~0.81, **Recall ~0.92**, F1-Score ~0.86, AUC-ROC ~0.90). O Recall alto é crucial para este contexto.
   ![Matriz de Confusão AD Doença Cardíaca](images/arvore_decisao_DC.png)
   ![Matriz de Confusão RF Doença Cardíaca](images/random_forest_DC.png)
   ![Matriz de Confusão RL Doença Cardíaca](images/regressao_logistica_DC.png)
@@ -123,6 +124,7 @@ A seguir, um resumo executivo dos principais achados e discussões críticas par
 ### 5.3. Previsão de Acidente Vascular Cerebral (AVC)
 
 * **Desempenho:** Os modelos apresentaram alta acurácia (acima de 0.90), mas um **Recall extremamente baixo para a classe 'Com AVC'** (ex: Regressão Logística e Random Forest com Recall de 0.02, identificando apenas 1 em 50 casos reais de AVC). Isso é devido ao **extremo desbalanceamento de classes** (apenas ~4.9% de casos de AVC).
+  
   ![Matriz de Confusão AD Acidente Vascular Cerebral](images/arvore_decisao_AVC.png)
   ![Matriz de Confusão RF Acidente Vascular Cerebral](images/random_forest_AVC.png)
   ![Matriz de Confusão RL Acidente Vascular Cerebral](images/regressao_logistica_AVC.png)
@@ -155,7 +157,7 @@ A Inteligência Artificial deve ser encarada como uma **ferramenta de suporte ao
 
 2.  **Clone o Repositório Git:**
     ```bash
-    git clone [INSIRA AQUI O LINK COMPLETO DO SEU REPOSITÓRIO GITHUB]
+    git clone https://github.com/Bielhsn/Diagnosticos_IA.git
     cd Saude_IA_Diagnostico
     ```
 
@@ -214,6 +216,10 @@ A Inteligência Artificial deve ser encarada como uma **ferramenta de suporte ao
 6.  **Use os Notebooks:**
     * Na interface do Jupyter, navegue até `notebooks/`, abra os `.ipynb` e execute as células.
 
-## 9. Contato
+## 9. Vídeo de Apresentação
+
+Link: 
+
+## 10. Contato
 
 Gabriel Henrique Souza - gabrielhenrique.hsn@gmail.com
