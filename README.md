@@ -66,7 +66,7 @@ Você pode configurar e rodar este projeto de duas maneiras: **Localmente (via C
 3.  **Crie e Ative o Ambiente Virtual (usando Conda):**
     Abra o terminal (Anaconda Prompt no Windows, Terminal no macOS/Linux) na pasta raiz do projeto (`Saude_IA_Diagnostico`).
     ```bash
-    conda create -n saude_ia_env python=3.11 # Ou a versão que você usou, ex: 3.12
+    conda create -n saude_ia_env python=3.11
     conda activate saude_ia_env
     ```
 
