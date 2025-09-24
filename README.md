@@ -29,9 +29,12 @@ Nesta fase, foram desenvolvidos modelos de Machine Learning para a classificaç�
 
 * **Doença de Parkinson:**
     * **Desempenho:** Os modelos apresentaram desempenho baixo (Random Forest: Acurácia ~0.55, Recall ~0.51, F1-Score ~0.55, AUC-ROC ~0.60).
-    ![Matriz de Confusão RL Parkinson](images/regressao_logistica_Park.png)
-    ![Matriz de Confusão AD Parkinson](images/arvore_decisao_Park.png)
-    ![Matriz de Confusão RF Parkinson](images/random_forest_Park.png)
+    
+  ![Matriz de Confusão RL Parkinson](images/regressao_logistica_Park.png)
+    
+  ![Matriz de Confusão AD Parkinson](images/arvore_decisao_Park.png)
+    
+  ![Matriz de Confusão RF Parkinson](images/random_forest_Park.png)
     * **Implicação Prática:** **NÃO é adequado para uso clínico**. Modelos com desempenho próximo ao acaso podem gerar muitos erros críticos (Falsos Negativos), comprometendo a segurança do paciente.
     * **Features Importantes:** Características relacionadas a perturbações na voz (`MDVP:Shimmer`, `Jitter:DDP`, `MDVP:Jitter(%)`) foram as mais relevantes.
       ![Features Importantes Parkinson](images/feature_Park.png)
