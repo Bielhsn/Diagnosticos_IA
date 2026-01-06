@@ -87,7 +87,7 @@ Nesta fase, foi implementada uma solução para o Problema de Roteamento de Veí
     * **Instruções detalhadas** para motoristas, transformando a rota otimizada em um texto claro e acionável.
     * **Relatórios diários** sobre a eficiência das rotas, destacando a economia de distância e tempo.
 
-3.3. Fase 3: Assistente Inteligente com RAG e Fine-Tuning
+### 3.3. Fase 3: Assistente Inteligente com RAG e Fine-Tuning
 Esta fase focou na criação de uma interface de chat para médicos, combinando conhecimento confiável (protocolos) com a fluidez de modelos de linguagem.
 
 Arquitetura RAG (Retrieval-Augmented Generation):
