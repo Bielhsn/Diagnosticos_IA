@@ -6,20 +6,28 @@ Este projeto tem como objetivo construir um sistema inteligente de suporte ao di
 
 * **Fase 1: Diagnóstico com Machine Learning** - Foco no desenvolvimento de modelos de classificação para prever doenças com base em dados médicos tabulares.
 * **Fase 2: Otimização e Linguagem Natural** - Foco na otimização de rotas para logística hospitalar usando algoritmos genéticos e na geração de relatórios e instruções com LLMs.
-
+* **Fase 3: Assistente Inteligente Generativo (GenAI)** - Desenvolvimento de um chatbot médico utilizando RAG (Retrieval-Augmented Generation) para consulta de protocolos e Fine-Tuning de LLMs (TinyLlama) para adaptação ao contexto hospitalar.
 ## 2. Estrutura do Projeto
 
 A estrutura de diretórios do projeto é organizada da seguinte forma:
 ````
 Saude_IA_Diagnostico/
-├── data/                 # Contém os datasets CSV utilizados no projeto (baixados via KaggleHub).
-├── notebooks/            # Jupyter Notebooks com as análises completas de ambas as fases.
-├── src/                  # Código-fonte principal (classes do AG, LLM, etc.).
+├── data/                 # Contém os datasets CSV e dados da Fase 3.
+│   └── fase3/            # Protocolos JSON e dados de fine-tuning gerados.
+├── notebooks/            # Jupyter Notebooks com as análises completas.
+│   ├── Diagnostico_*.ipynb     # Notebooks da Fase 1.
+│   ├── AG_Rotas_Medicas.ipynb  # Notebook da Fase 2.
+│   └── FineTuning_LLM.ipynb    # Notebook de treinamento do modelo (LoRA/PEFT).
+├── src/                  # Código-fonte principal.
+│   ├── medical_assistant/      # Módulo do assistente inteligente.
+│   │   ├── generator.py        # Gerador de dados sintéticos.
+│   │   └── rag_engine.py       # Motor de RAG e integração com LLM.
+│   └── ga_models.py            # Classes do Algoritmo Genético.
 ├── images/               # Contém imagens para este README.md.
-├── .gitignore            # Arquivo de configuração para o controle de versão Git.
-├── Dockerfile            # Define o ambiente Docker para execução do projeto.
-├── README.md             # Este arquivo, com a documentação geral e o relatório executivo do projeto.
-└── requirements.txt      # Lista de todas as bibliotecas Python necessárias.
+├── main_assistant.py     # Script principal para executar o Chatbot.
+├── Dockerfile            # Define o ambiente Docker.
+├── README.md             # Documentação do projeto.
+└── requirements.txt      # Lista de bibliotecas Python.
 ````
 ## 3. Metodologia e Resultados por Fase
 
@@ -79,17 +87,47 @@ Nesta fase, foi implementada uma solução para o Problema de Roteamento de Veí
     * **Instruções detalhadas** para motoristas, transformando a rota otimizada em um texto claro e acionável.
     * **Relatórios diários** sobre a eficiência das rotas, destacando a economia de distância e tempo.
 
+3.3. Fase 3: Assistente Inteligente com RAG e Fine-Tuning
+Esta fase focou na criação de uma interface de chat para médicos, combinando conhecimento confiável (protocolos) com a fluidez de modelos de linguagem.
+
+Arquitetura RAG (Retrieval-Augmented Generation):
+
+Utilizou-se o LangChain e ChromaDB para criar uma base de conhecimento vetorial a partir de protocolos clínicos (ex: Sepse, Dor Torácica).
+
+O sistema busca a informação oficial antes de responder, reduzindo alucinações.
+
+Fine-Tuning Eficiente (PEFT/LoRA):
+
+Treinamento do modelo TinyLlama-1.1B-Chat utilizando a técnica LoRA (Low-Rank Adaptation).
+
+O modelo foi otimizado para rodar em CPU, utilizando quantização e precisão mista para viabilizar a execução local sem necessidade de GPUs de alta performance.
+
+Segurança (Guardrails):
+
+Implementação de regras rígidas de segurança. O assistente bloqueia solicitações de prescrição direta (ex: "Prescrever Vancomicina"), orientando o usuário a validar com um humano, conforme princípios de IA Responsável.
+
 ## 4. Conclusão Geral do Projeto
 
-Este projeto demonstra a aplicação de diversas técnicas de IA em problemas do mundo real na área da saúde. Na **Fase 1**, a análise de modelos de Machine Learning mostrou que a performance é altamente dependente da qualidade e natureza dos dados, e que a interpretação crítica é tão importante quanto a acurácia. Na **Fase 2**, a implementação de algoritmos genéticos e a integração com LLMs validam o potencial da IA na otimização de processos logísticos e na geração de valor a partir de dados brutos.
+Análise Preditiva: Onde a qualidade dos dados dita o sucesso (Fase 1).
 
-A Inteligência Artificial deve ser encarada como uma **ferramenta de suporte ao diagnóstico**, capaz de otimizar processos, identificar padrões sutis e auxiliar na priorização de casos. **Contudo, a palavra final no diagnóstico e na decisão clínica pertence SEMPRE ao médico.** A expertise humana, o julgamento clínico e a interação com o paciente são insubstituíveis. O sucesso de um sistema de IA em saúde reside na colaboração eficaz entre a tecnologia e os profissionais de saúde.
+Otimização Operacional: Onde algoritmos clássicos resolvem problemas logísticos complexos (Fase 2).
 
-## 5. Como Configurar e Rodar o Projeto
+IA Generativa: Onde LLMs e RAG atuam como copilotos, democratizando o acesso à informação protocolar (Fase 3).
+
+## 5. Tecnologias e Ferramentas
+Linguagem: Python 3.9+
+
+Machine Learning: scikit-learn, pandas, shap.
+
+GenAI & LLMs: transformers (Hugging Face), langchain, chromadb, peft, trl.
+
+Ambiente: PyCharm, Docker, Conda.
+
+## 6. Como Configurar e Rodar o Projeto
 
 Você pode configurar e rodar este projeto de forma local (via Conda/PyCharm) ou utilizando Docker. As instruções detalhadas, incluindo como configurar suas credenciais do Kaggle, estão disponíveis abaixo.
 
-### 5.1. Tecnologias e Ferramentas
+### 6.1. Tecnologias e Ferramentas
 
 * **Linguagem de Programação:** Python 3.9+
 * **IDE:** PyCharm Community Edition
@@ -97,7 +135,7 @@ Você pode configurar e rodar este projeto de forma local (via Conda/PyCharm) ou
 * **Containerização:** Docker
 * **Frameworks/Bibliotecas Python:** `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `seaborn`, `shap`, `jupyter`, `kagglehub`.
 
-### 5.2. Configuração e Execução Local (via Conda/PyCharm)
+### 6.2. Configuração e Execução Local (via Conda/PyCharm)
 
 1.  **Pré-requisitos:**
     * Instale o [Miniconda](https://docs.conda.io/en/latest/miniconda.html) ou [Anaconda](https://www.anaconda.com/download).
@@ -133,7 +171,7 @@ Você pode configurar e rodar este projeto de forma local (via Conda/PyCharm) ou
 7.  **Execute os Notebooks:**
     * Na pasta `notebooks/`, abra cada `.ipynb` e execute as células sequencialmente. Os datasets serão baixados automaticamente para `data/`.
 
-### 5.3. Configuração e Execução via Docker (Recomendado)
+### 6.3. Configuração e Execução via Docker (Recomendado)
 
 1.  **Pré-requisitos:**
     * Instale o [Docker Desktop](https://www.docker.com/products/docker-desktop/). Certifique-se de que esteja em execução.
@@ -164,88 +202,11 @@ Você pode configurar e rodar este projeto de forma local (via Conda/PyCharm) ou
 6.  **Use os Notebooks:**
     * Na interface do Jupyter, navegue até `notebooks/`, abra os `.ipynb` e execute as células.
 
-## 6. Conclusão Geral do Projeto
+## 7. Conclusão Geral do Projeto
 
 Este projeto demonstra a aplicação de diversas técnicas de IA em problemas do mundo real na área da saúde. Na **Fase 1**, a análise de modelos de Machine Learning mostrou que a performance é altamente dependente da qualidade e natureza dos dados, e que a interpretação crítica é tão importante quanto a acurácia. Na **Fase 2**, a implementação de algoritmos genéticos e a integração com LLMs validam o potencial da IA na otimização de processos logísticos e na geração de valor a partir de dados brutos.
 
 A Inteligência Artificial deve ser encarada como uma **ferramenta de suporte ao diagnóstico**, capaz de otimizar processos, identificar padrões sutis e auxiliar na priorização de casos. **Contudo, a palavra final no diagnóstico e na decisão clínica pertence SEMPRE ao médico.** A expertise humana, o julgamento clínico e a interação com o paciente são insubstituíveis. O sucesso de um sistema de IA em saúde reside na colaboração eficaz entre a tecnologia e os profissionais de saúde.
-
-## 7. Tecnologias e Ferramentas
-
-* **Linguagem de Programação:** Python 3.9+
-* **IDE:** PyCharm Community Edition
-* **Gerenciamento de Ambiente/Pacotes:** Conda
-* **Containerização:** Docker
-* **Frameworks/Bibliotecas Python:** `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `seaborn`, `shap`, `jupyter`, `kagglehub`.
-
-## 8. Como Configurar e Rodar o Projeto
-
-### 8.1. Configuração e Execução Local (via Conda/PyCharm)
-
-1.  **Pré-requisitos:**
-    * Instale o [Miniconda](https://docs.conda.io/en/latest/miniconda.html) ou [Anaconda](https://www.anaconda.com/download).
-    * Instale o [PyCharm Community Edition](https://www.jetbrains.com/pycharm/download/).
-
-2.  **Clone o Repositório Git:**
-    ```bash
-    git clone https://github.com/Bielhsn/Diagnosticos_IA.git
-    cd Saude_IA_Diagnostico
-    ```
-
-3.  **Crie e Ative o Ambiente Virtual (Conda):**
-    Abra o terminal (Anaconda Prompt, Terminal) na pasta raiz do projeto (`Saude_IA_Diagnostico`).
-    ```bash
-    conda create -n saude_ia_env python=3.11 # Use a versão Python que usou, ex: 3.12
-    conda activate saude_ia_env
-    ```
-
-4.  **Instale as Dependências Python:**
-    ```bash
-    pip install -r requirements.txt
-    ```
-
-5.  **Configure as Credenciais do Kaggle:**
-    * Vá para [kaggle.com/account](https://www.kaggle.com/account) (faça login).
-    * Na seção "API", clique em "Create New API Token". Um arquivo `kaggle.json` será baixado.
-    * Mova `kaggle.json` para `C:\Users\SEU_USUARIO\.kaggle\` (Windows) ou `~/.kaggle/` (macOS/Linux).
-
-6.  **Abra o Projeto no PyCharm:**
-    * Selecione "Open" e a pasta `Saude_IA_Diagnostico`.
-    * Configure o interpretador Python do projeto para `saude_ia_env`.
-
-7.  **Execute os Notebooks:**
-    * Na pasta `notebooks/`, abra cada `.ipynb` e execute as células sequencialmente. Os datasets serão baixados automaticamente para `data/`.
-
-### 8.2. Configuração e Execução via Docker (Recomendado)
-
-1.  **Pré-requisitos:**
-    * Instale o [Docker Desktop](https://www.docker.com/products/docker-desktop/). Certifique-se de que esteja em execução.
-
-2.  **Clone o Repositório Git:**
-    ```bash
-    git clone https://github.com/Bielhsn/Diagnosticos_IA.git
-    cd Saude_IA_Diagnostico
-    ```
-
-3.  **Configure as Credenciais do Kaggle (para Docker):**
-    * Baixe `kaggle.json` de [kaggle.com/account](https://www.kaggle.com/account).
-    * Mova-o para `C:\Users\SEU_USUARIO\.kaggle\` (Windows) ou `~/.kaggle/` (macOS/Linux).
-
-4.  **Construa a Imagem Docker:**
-    Abra o terminal na pasta raiz do projeto (`Saude_IA_Diagnostico`).
-    ```bash
-    docker build -t saude_ia_diagnostico .
-    ```
-
-5.  **Execute o Contêiner Docker e Acesse o Jupyter:**
-    ```bash
-    docker run -p 8888:8888 -v C:\Users\SEU_USUARIO\.kaggle\kaggle.json:/root/.kaggle/kaggle.json saude_ia_diagnostico
-    ```
-    *(**ATENÇÃO:** Substitua `SEU_USUARIO` pelo seu nome de usuário real no Windows).*
-    Copie o link (`http://127.0.0.1:8888/tree?token=...`) que aparecer no terminal e cole-o no seu navegador.
-
-6.  **Use os Notebooks:**
-    * Na interface do Jupyter, navegue até `notebooks/`, abra os `.ipynb` e execute as células.
 
 ## 9. Contato
 

@@ -1,31 +1,27 @@
-# Python
+# Ambientes Virtuais
+venv/
+.venv/
+env/
+
+# PyCharm / IDE
+.idea/
+.vscode/
+
+# Python Cache
 __pycache__/
 *.pyc
-*.pyo
-*.pyd
-.Python/
-env/
-venv/
-*.env
-.idea/
-.pytest_cache/
-.ipynb_checkpoints/
-.ipynb_history/
-build/
-dist/
-*.egg-info/
-.tox/
-.coverage
-.mypy_cache/
-.vscode/
-*.log
 
-# Specific to this project - do not commit large datasets
-# If your datasets are small (like the ones chosen), you can remove these lines
-# or comment them out if you want to include them in the Git repository.
-# For now, let's assume you'll include them since they're relatively small.
-# If your 'data/' folder ever gets huge, consider uncommenting the line below.
-# data/
+# Dados e Modelos Pesados (Fase 3)
+chroma_db/
+results/
+models/
+*.safetensors
+*.pt
+*.bin
 
-# If you want to explicitly ignore all CSV files (but you probably don't for 'data/')
-# *.csv
+# Arquivos de sistema
+.DS_Store
+
+# Credenciais (Segurança)
+kaggle.json
+.env

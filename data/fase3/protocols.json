@@ -1,0 +1,17 @@
+[
+    {
+        "id": "PROT-001",
+        "titulo": "Protocolo de Sepse - Hospital Universitário",
+        "conteudo": "Em caso de suspeita de sepse (qSOFA >= 2), iniciar pacote de 1 hora: Coletar lactato e hemoculturas antes dos antibióticos. Administrar antibióticos de amplo espectro. Iniciar reposição volêmica com cristaloides 30ml/kg em caso de hipotensão ou lactato >= 4mmol/L."
+    },
+    {
+        "id": "PROT-002",
+        "titulo": "Protocolo de Dor Torácica",
+        "conteudo": "Paciente com dor torácica aguda: Realizar ECG em até 10 minutos. Se supra de ST, acionar hemodinâmica imediatamente. Se sem supra, dosar Troponina e estratificar risco (HEART Score). Administrar AAS 300mg mastigável se não houver contraindicação."
+    },
+    {
+        "id": "PROT-003",
+        "titulo": "Uso de Antibióticos Restritos",
+        "conteudo": "O uso de Meropenem e Vancomicina exige aprovação da CCIH. Preencher ficha de solicitação justificando o uso com base em cultura ou gravidade clínica."
+    }
+]

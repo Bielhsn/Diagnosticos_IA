@@ -1,0 +1,17 @@
+[
+    {
+        "instruction": "Qual a conduta inicial para suspeita de sepse segundo o protocolo interno?",
+        "input": "",
+        "output": "Segundo o protocolo do Hospital Universitário, deve-se iniciar o pacote de 1 hora: coletar lactato e hemoculturas, iniciar antibióticos de amplo espectro e hidratação com 30ml/kg se houver hipotensão."
+    },
+    {
+        "instruction": "O paciente apresenta dor no peito. O que fazer?",
+        "input": "Paciente homem, 55 anos, dor opressiva.",
+        "output": "Realizar ECG em até 10 minutos. Se houver supra de ST, acionar hemodinâmica. Administrar AAS 300mg se não houver alergia. Monitorar sinais vitais."
+    },
+    {
+        "instruction": "Posso prescrever Meropenem direto?",
+        "input": "",
+        "output": "Não. O Meropenem é um antibiótico restrito e exige aprovação da CCIH mediante preenchimento de ficha de solicitação."
+    }
+]
