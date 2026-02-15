@@ -17,3 +17,10 @@ trl
 sentence-transformers
 datasets
 faker
+ultralytics
+opencv-python
+librosa
+torch
+torchaudio
+transformers
+numpy

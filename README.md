@@ -106,7 +106,31 @@ Segurança (Guardrails):
 
 Implementação de regras rígidas de segurança. O assistente bloqueia solicitações de prescrição direta (ex: "Prescrever Vancomicina"), orientando o usuário a validar com um humano, conforme princípios de IA Responsável.
 
-## 4. Conclusão Geral do Projeto
+## 4. Fase 4: Análise Multimodal (Saúde da Mulher)
+
+Nesta fase, expandimos o sistema para processar dados não estruturados (vídeo e áudio), focando em **Ginecologia, Obstetrícia e Saúde Mental**.
+
+### 4.1. Visão Computacional (Vídeo)
+* **Objetivo:** Monitoramento automatizado de procedimentos cirúrgicos e segurança da paciente.
+* **Modelo Aplicado:** **YOLOv8** (You Only Look Once).
+* **Aplicação:** Detecção de instrumentos cirúrgicos em tempo real.
+    * *Nota:* Para fins de demonstração acadêmica, o sistema utiliza classes proxies (tesouras/lâminas) do dataset COCO para simular a identificação de pinças e bisturis ginecológicos.
+* **Saída:** Vídeo anotado com bounding boxes e relatório de uso de instrumentos críticos.
+
+### 4.2. Processamento de Áudio (Saúde Mental)
+* **Objetivo:** Triagem auxiliar para Depressão Pós-Parto e Ansiedade Gestacional através de biomarcadores vocais.
+* **Modelo Aplicado:** **HuBERT (Hidden Unit BERT)** fine-tuned para *Emotion Recognition*.
+* **Aplicação:** O modelo analisa fragmentos de áudio de consultas para classificar o estado emocional da paciente (Neutro, Tristeza, Medo, Alegria).
+* **Resultados Esperados:**
+    * Detecção de `Sadness` (Tristeza) -> Alerta para triagem de Depressão.
+    * Detecção de `Fear` (Medo) -> Alerta para triagem de Ansiedade ou Situação de Risco.
+
+### 4.3. Exemplo de Relatório Integrado
+O sistema gera alertas automáticos, como:
+> "⚠️ ALERTA DE ÁUDIO: Indicadores vocais compatíveis com Depressão Pós-Parto (Confiança: 88%)."
+> "⚠️ ALERTA DE VÍDEO: Instrumento cortante ativo por tempo prolongado."
+> 
+## 5. Conclusão Geral do Projeto
 
 Análise Preditiva: Onde a qualidade dos dados dita o sucesso (Fase 1).
 
@@ -114,7 +138,7 @@ Otimização Operacional: Onde algoritmos clássicos resolvem problemas logísti
 
 IA Generativa: Onde LLMs e RAG atuam como copilotos, democratizando o acesso à informação protocolar (Fase 3).
 
-## 5. Tecnologias e Ferramentas
+## 6. Tecnologias e Ferramentas
 Linguagem: Python 3.9+
 
 Machine Learning: scikit-learn, pandas, shap.
@@ -123,11 +147,11 @@ GenAI & LLMs: transformers (Hugging Face), langchain, chromadb, peft, trl.
 
 Ambiente: PyCharm, Docker, Conda.
 
-## 6. Como Configurar e Rodar o Projeto
+## 7. Como Configurar e Rodar o Projeto
 
 Você pode configurar e rodar este projeto de forma local (via Conda/PyCharm) ou utilizando Docker. As instruções detalhadas, incluindo como configurar suas credenciais do Kaggle, estão disponíveis abaixo.
 
-### 6.1. Tecnologias e Ferramentas
+### 7.1. Tecnologias e Ferramentas
 
 * **Linguagem de Programação:** Python 3.9+
 * **IDE:** PyCharm Community Edition
@@ -135,7 +159,7 @@ Você pode configurar e rodar este projeto de forma local (via Conda/PyCharm) ou
 * **Containerização:** Docker
 * **Frameworks/Bibliotecas Python:** `pandas`, `numpy`, `scikit-learn`, `matplotlib`, `seaborn`, `shap`, `jupyter`, `kagglehub`.
 
-### 6.2. Configuração e Execução Local (via Conda/PyCharm)
+### 7.2. Configuração e Execução Local (via Conda/PyCharm)
 
 1.  **Pré-requisitos:**
     * Instale o [Miniconda](https://docs.conda.io/en/latest/miniconda.html) ou [Anaconda](https://www.anaconda.com/download).
@@ -171,7 +195,7 @@ Você pode configurar e rodar este projeto de forma local (via Conda/PyCharm) ou
 7.  **Execute os Notebooks:**
     * Na pasta `notebooks/`, abra cada `.ipynb` e execute as células sequencialmente. Os datasets serão baixados automaticamente para `data/`.
 
-### 6.3. Configuração e Execução via Docker (Recomendado)
+### 7.3. Configuração e Execução via Docker (Recomendado)
 
 1.  **Pré-requisitos:**
     * Instale o [Docker Desktop](https://www.docker.com/products/docker-desktop/). Certifique-se de que esteja em execução.
@@ -202,7 +226,7 @@ Você pode configurar e rodar este projeto de forma local (via Conda/PyCharm) ou
 6.  **Use os Notebooks:**
     * Na interface do Jupyter, navegue até `notebooks/`, abra os `.ipynb` e execute as células.
 
-## 7. Conclusão Geral do Projeto
+## 8. Conclusão Geral do Projeto
 
 Este projeto demonstra a aplicação de diversas técnicas de IA em problemas do mundo real na área da saúde. Na **Fase 1**, a análise de modelos de Machine Learning mostrou que a performance é altamente dependente da qualidade e natureza dos dados, e que a interpretação crítica é tão importante quanto a acurácia. Na **Fase 2**, a implementação de algoritmos genéticos e a integração com LLMs validam o potencial da IA na otimização de processos logísticos e na geração de valor a partir de dados brutos.
 
