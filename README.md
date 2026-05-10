@@ -106,30 +106,196 @@ Segurança (Guardrails):
 
 Implementação de regras rígidas de segurança. O assistente bloqueia solicitações de prescrição direta (ex: "Prescrever Vancomicina"), orientando o usuário a validar com um humano, conforme princípios de IA Responsável.
 
-## 4. Fase 4: Análise Multimodal (Saúde da Mulher)
+## 4. Fase 4: Sistema Multimodal de Saúde da Mulher
 
-Nesta fase, expandimos o sistema para processar dados não estruturados (vídeo e áudio), focando em **Ginecologia, Obstetrícia e Saúde Mental**.
+Nesta fase, o projeto foi expandido para um sistema multimodal especializado em **Saúde da Mulher**, integrando análise de **vídeo e áudio clínico** para identificação precoce de sinais de risco relacionados ao bem-estar físico e psicológico feminino.
 
-### 4.1. Visão Computacional (Vídeo)
-* **Objetivo:** Monitoramento automatizado de procedimentos cirúrgicos e segurança da paciente.
-* **Modelo Aplicado:** **YOLOv8** (You Only Look Once).
-* **Aplicação:** Detecção de instrumentos cirúrgicos em tempo real.
-    * *Nota:* Para fins de demonstração acadêmica, o sistema utiliza classes proxies (tesouras/lâminas) do dataset COCO para simular a identificação de pinças e bisturis ginecológicos.
-* **Saída:** Vídeo anotado com bounding boxes e relatório de uso de instrumentos críticos.
+O objetivo desta etapa consiste em apoiar equipes médicas no monitoramento preventivo de pacientes durante consultas, acompanhamento gestacional e período pós-parto, utilizando Inteligência Artificial para análise comportamental e vocal.
 
-### 4.2. Processamento de Áudio (Saúde Mental)
-* **Objetivo:** Triagem auxiliar para Depressão Pós-Parto e Ansiedade Gestacional através de biomarcadores vocais.
-* **Modelo Aplicado:** **HuBERT (Hidden Unit BERT)** fine-tuned para *Emotion Recognition*.
-* **Aplicação:** O modelo analisa fragmentos de áudio de consultas para classificar o estado emocional da paciente (Neutro, Tristeza, Medo, Alegria).
-* **Resultados Esperados:**
-    * Detecção de `Sadness` (Tristeza) -> Alerta para triagem de Depressão.
-    * Detecção de `Fear` (Medo) -> Alerta para triagem de Ansiedade ou Situação de Risco.
+A solução foi projetada para processar dados multimodais, identificando padrões associados a:
 
-### 4.3. Exemplo de Relatório Integrado
-O sistema gera alertas automáticos, como:
-> "⚠️ ALERTA DE ÁUDIO: Indicadores vocais compatíveis com Depressão Pós-Parto (Confiança: 88%)."
-> "⚠️ ALERTA DE VÍDEO: Instrumento cortante ativo por tempo prolongado."
-> 
+* **Desconforto psicológico**
+* **Ansiedade gestacional**
+* **Possíveis sinais de sofrimento emocional**
+* **Triagem auxiliar para depressão pós-parto**
+* **Indicadores não verbais de retraimento ou medo**
+
+### 4.1. Arquitetura Multimodal da Solução
+
+O sistema foi estruturado em um pipeline multimodal dividido em duas frentes principais:
+
+#### Entrada de Vídeo
+```txt
+Vídeo de consulta
+        ↓
+YOLOv8 + MediaPipe Pose
+        ↓
+Extração de landmarks corporais
+        ↓
+Análise de postura corporal
+        ↓
+Detecção de sinais não verbais
+        ↓
+Geração de alertas clínicos
+```
+
+#### Entrada de Áudio
+
+```txt
+Áudio da consulta
+        ↓
+HuBERT (Emotion Recognition)
+        ↓
+Classificação emocional vocal
+        ↓
+Interpretação clínica
+        ↓
+Geração de alertas emocionais
+```
+
+#### Fusão Multimodal
+
+```txt
+Vídeo + Áudio
+        ↓
+Análise integrada
+        ↓
+Relatório consolidado
+de Saúde da Mulher
+```
+
+O sistema foi desenvolvido para atuar como uma ferramenta de **apoio clínico preventivo**, não substituindo avaliação médica especializada.
+
+---
+
+### 4.2. Análise de Vídeo Especializada para Saúde da Mulher
+
+#### Objetivo
+
+A análise de vídeo foi desenvolvida para monitorar sinais não verbais de desconforto psicológico durante consultas femininas, com foco em contextos ginecológicos, obstétricos e acompanhamento emocional.
+
+#### Tecnologias Aplicadas
+
+* **YOLOv8 (Ultralytics)**  
+  Utilizado para processamento visual e suporte à análise computacional do vídeo em tempo real.
+
+* **MediaPipe Pose**  
+  Utilizado para extração de **landmarks corporais**, permitindo identificar padrões posturais e movimentos associados ao desconforto emocional.
+
+* **OpenCV**  
+  Responsável pelo processamento de vídeo, renderização das anotações e geração do vídeo analisado.
+
+#### Estratégia de Detecção
+
+O sistema realiza análise da postura corporal da paciente durante consultas médicas.
+
+Como indicador inicial de desconforto psicológico, foi implementada uma regra baseada em:
+
+* **Inclinação da cabeça para baixo**
+* **Postura retraída**
+* **Persistência temporal do comportamento**
+
+O sistema evita falsos positivos através de monitoramento contínuo, registrando alertas apenas quando o padrão é detectado por um período mínimo.
+
+#### Exemplo de Evento Detectado
+
+```txt
+[13.40s] Possível desconforto psicológico detectado
+```
+
+#### Resultados Obtidos
+
+Durante os testes realizados com vídeos simulando consultas femininas, o sistema foi capaz de detectar comportamentos associados a retraimento emocional, gerando alertas automáticos e registrando os eventos identificados no relatório final.
+
+---
+
+### 4.3. Análise de Áudio Especializada para Saúde da Mulher
+
+#### Objetivo
+
+A análise de áudio foi desenvolvida para auxiliar na identificação precoce de alterações emocionais relacionadas à saúde mental feminina, especialmente em cenários de:
+
+* **Depressão pós-parto**
+* **Ansiedade gestacional**
+* **Sofrimento emocional**
+* **Possíveis situações de vulnerabilidade psicológica**
+
+#### Modelo Aplicado
+
+Foi utilizado o modelo:
+
+**HuBERT (Hidden Unit BERT)** Fine-Tuned para **Emotion Recognition**, disponibilizado pela Hugging Face.
+
+O modelo é responsável por classificar padrões emocionais presentes na fala da paciente.
+
+#### Emoções Monitoradas
+
+O sistema analisa probabilidades relacionadas a emoções como:
+
+* Neutro
+* Tristeza
+* Medo
+* Irritação/Estresse
+* Emoções positivas
+
+#### Interpretação Clínica
+
+Os resultados do modelo são reinterpretados para o contexto médico feminino.
+
+Exemplo:
+
+* **Tristeza elevada** → possível sofrimento emocional ou depressão pós-parto.
+* **Medo/Ansiedade elevada** → possível ansiedade gestacional ou situação de vulnerabilidade.
+* **Predominância neutra com sinais moderados de tristeza** → monitoramento recomendado.
+
+#### Exemplo de Resultado Obtido
+
+```txt
+ANÁLISE DE ÁUDIO - SAÚDE DA MULHER
+
+PRINCIPAIS PADRÕES VOCAIS DETECTADOS:
+- Neutro: 53.13%
+- Tristeza: 35.92%
+- Estável/Positivo: 8.93%
+
+INTERPRETAÇÃO CLÍNICA:
+⚠️ Apesar do padrão vocal majoritariamente neutro,
+foram detectados sinais moderados de tristeza vocal.
+Recomenda-se monitoramento para sofrimento emocional
+ou depressão pós-parto.
+```
+
+---
+
+### 4.4. Anomalias Detectadas
+
+O sistema foi projetado para detectar diferentes padrões clínicos de risco relacionados à saúde da mulher.
+
+#### Modalidade de Vídeo
+
+* Inclinação persistente da cabeça
+* Linguagem corporal retraída
+* Possíveis sinais de desconforto psicológico
+* Indícios comportamentais associados a medo ou sofrimento emocional
+
+#### Modalidade de Áudio
+
+* Tristeza vocal persistente
+* Alterações emocionais compatíveis com sofrimento psicológico
+* Indícios de ansiedade ou medo
+* Possíveis sinais relacionados à depressão pós-parto
+
+---
+
+### 4.5. Benefícios da Abordagem Multimodal
+
+A utilização de múltiplas modalidades de dados clínicos amplia significativamente a robustez do sistema.
+
+Enquanto o **vídeo** captura sinais não verbais e postura corporal, o **áudio** permite identificar alterações emocionais presentes na fala da paciente.
+
+Essa combinação possibilita uma análise mais abrangente do estado emocional e comportamental feminino, reduzindo limitações de abordagens baseadas em apenas uma fonte de informação.
+
+O sistema atua como um mecanismo de **triagem preventiva especializada**, auxiliando profissionais de saúde na identificação precoce de casos que podem demandar acompanhamento clínico adicional.
 ## 5. Conclusão Geral do Projeto
 
 Análise Preditiva: Onde a qualidade dos dados dita o sucesso (Fase 1).

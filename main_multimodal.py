@@ -1,20 +1,19 @@
 import os
-from src.multimodal.video_analysis import SurgicalVideoAnalyzer
+from src.multimodal.video_analysis import WomensHealthVideoAnalyzer
 from src.multimodal.audio_analysis import WomensHealthAudioAnalyzer
-
+video_analyzer = WomensHealthVideoAnalyzer()
 
 def main():
     print("=== FASE 4: SISTEMA MULTIMODAL DE SAÚDE DA MULHER ===")
 
-    # Defina caminhos (Crie a pasta data/fase4 e coloque arquivos reais para testar!)
-    # Se não tiver arquivos, o sistema vai avisar.
-    video_path = "data/fase4/exemplo_cirurgia.mp4"
-    audio_path = "data/fase4/exemplo_consulta.wav"
+    # Caminhos
+    video_path = "data/fase4/mulher_consulta.mp4"
+    audio_path = "data/fase4/OAF_back_sad.wav"
 
     # 1. Análise de Vídeo (Cirurgia/Procedimentos)
     print("\n[1/2] Iniciando Análise de Vídeo...")
     if os.path.exists(video_path):
-        video_analyzer = SurgicalVideoAnalyzer()  # Usa modelo padrão (detecta tesouras/facas como teste)
+        video_analyzer = WomensHealthVideoAnalyzer()  # Usa modelo padrão (detecta tesouras/facas como teste)
         # Processa
         video_analyzer.analyze_video(video_path, output_path="data/fase4/resultado_video.avi")
         # Relatório

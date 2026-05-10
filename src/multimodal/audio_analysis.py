@@ -25,32 +25,221 @@ class WomensHealthAudioAnalyzer:
         return analysis
 
     def _interpret_results(self, results):
-        # Mapeamento para contexto clínico
+
         translation = {
-            "neutral": "Neutro",
-            "happy": "Estável/Positivo",
-            "sad": "Sinais de Tristeza/Depressão",
-            "angry": "Sinais de Estresse/Irritabilidade",
-            "fear": "Sinais de Medo/Ansiedade"
+            "neu": "Neutro",
+            "hap": "Estável/Positivo",
+            "sad": "Tristeza",
+            "ang": "Estresse/Irritabilidade",
+            "fea": "Medo/Ansiedade"
         }
 
         top_emotion = results[0]
         label = top_emotion['label']
         score = top_emotion['score']
 
-        clinical_note = translation.get(label, label)
+        emotion_scores = {}
 
-        report = "ANÁLISE DE ÁUDIO - SAÚDE MENTAL MATERNA\n"
+        for emotion in results:
+            emotion_scores[
+                emotion['label']
+            ] = emotion['score']
+
+        report = (
+            "ANÁLISE DE ÁUDIO - "
+            "SAÚDE DA MULHER\n"
+        )
+
         report += "=" * 50 + "\n"
-        report += f"Emoção Predominante: {clinical_note}\n"
-        report += f"Nível de Confiança: {round(score * 100, 2)}%\n\n"
 
-        report += "INTERPRETAÇÃO CLÍNICA:\n"
-        if label == 'sad':
-            report += "⚠️ ALERTA: Indicadores vocais compatíveis com Depressão Pós-Parto. Recomenda-se aplicar escala de Edimburgo.\n"
-        elif label == 'fear' or label == 'angry':
-            report += "⚠️ ALERTA: Indicadores de alta ansiedade ou estresse. Avaliar histórico de violência doméstica ou ansiedade gestacional.\n"
-        else:
-            report += "✅ Padrão vocal dentro da normalidade esperada.\n"
+        report += (
+            "PRINCIPAIS PADRÕES "
+            "VOCAIS DETECTADOS:\n"
+        )
+
+        for emotion in results[:3]:
+            translated = translation.get(
+                emotion['label'],
+                emotion['label']
+            )
+
+            confidence = round(
+                emotion['score'] * 100,
+                2
+            )
+
+            report += (
+                f"- {translated}: "
+                f"{confidence}%\n"
+            )
+
+        report += "\n"
+
+        report += (
+            "INTERPRETAÇÃO CLÍNICA:\n"
+        )
+
+        if label == "sad":
+
+            report += (
+                "⚠️ Possíveis sinais "
+                "de sofrimento emocional.\n"
+            )
+
+            report += (
+                "⚠️ Perfil vocal "
+                "compatível com "
+                "depressão pós-parto "
+                "ou tristeza persistente.\n"
+            )
+
+            report += (
+                "Recomendação: "
+                "aplicar escala "
+                "de Edimburgo.\n"
+            )
+
+        elif label == "fea":
+
+            report += (
+                "⚠️ Sinais vocais "
+                "de ansiedade, medo "
+                "ou trauma emocional.\n"
+            )
+
+            report += (
+                "⚠️ Recomenda-se "
+                "triagem para "
+                "ansiedade gestacional "
+                "e investigação "
+                "de possível "
+                "violência doméstica.\n"
+            )
+
+        elif label == "ang":
+
+            report += (
+                "⚠️ Indícios de "
+                "estresse emocional "
+                "ou sofrimento psíquico.\n"
+            )
+
+            report += (
+                "Avaliar sobrecarga "
+                "emocional e "
+                "rede de suporte.\n"
+            )
+
+        elif label == "neu":
+
+            sadness_level = (
+
+                emotion_scores.get(
+
+                    "sad",
+
+                    0
+
+                )
+
+            )
+
+            fear_level = (
+
+                emotion_scores.get(
+
+                    "fea",
+
+                    0
+
+                )
+
+            )
+
+            if sadness_level > 0.25:
+
+                report += (
+
+                    "⚠️ Apesar do "
+            
+                    "padrão vocal "
+            
+                    "majoritariamente "
+            
+                    "neutro, foram "
+            
+                    "detectados sinais "
+            
+                    "moderados de "
+            
+                    "tristeza vocal.\n"
+
+                )
+
+                report += (
+
+                    "Recomenda-se "
+            
+                    "monitoramento "
+            
+                    "para sofrimento "
+            
+                    "emocional ou "
+            
+                    "depressão "
+            
+                    "pós-parto.\n"
+
+                )
+
+
+            elif fear_level > 0.25:
+
+                report += (
+
+                    "⚠️ Detectados "
+            
+                    "traços vocais "
+            
+                    "de ansiedade "
+            
+                    "ou medo.\n"
+
+                )
+
+                report += (
+
+                    "Recomenda-se "
+            
+                    "avaliação "
+            
+                    "emocional "
+            
+                    "preventiva.\n"
+
+                )
+
+
+            else:
+
+                report += (
+
+                    "✅ Sem indicadores "
+            
+                    "vocais relevantes "
+            
+                    "de sofrimento "
+            
+                    "emocional.\n"
+
+                )
+
+        elif label == "hap":
+
+            report += (
+                "✅ Padrão vocal "
+                "compatível com "
+                "estabilidade emocional.\n"
+            )
 
         return report
