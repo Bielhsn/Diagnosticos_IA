@@ -1,5 +1,8 @@
 import json
-# Imports atualizados
+import os
+import warnings
+import textwrap
+from transformers import logging
 from langchain_community.vectorstores import Chroma
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_huggingface import HuggingFacePipeline
@@ -8,6 +11,9 @@ from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 from langchain_core.prompts import PromptTemplate
 
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
+warnings.filterwarnings("ignore")
+logging.set_verbosity_error()
 
 class MedicalAssistantRAG:
     def __init__(self):
@@ -30,10 +36,10 @@ class MedicalAssistantRAG:
             "text-generation",
             model=model,
             tokenizer=tokenizer,
-            max_new_tokens=256,  # Permite respostas mais longas
-            temperature=0.3,  # Criatividade baixa (mais foco no fato)
-            repetition_penalty=1.2,  # Evita repetir frases
-            return_full_text=False  # <--- ISSO CORRIGE A REPETIÇÃO DO PROMPT
+            max_new_tokens=80,  # reduz
+            temperature=0.1,
+            do_sample=False,
+            return_full_text=False
         )
         return HuggingFacePipeline(pipeline=pipe)
 
@@ -86,23 +92,31 @@ class MedicalAssistantRAG:
 
         # 3. Generation (Prompt Otimizado para TinyLlama)
         prompt_template = PromptTemplate.from_template(
-            """<|system|>
-            Você é um assistente médico útil e direto. Responda à pergunta usando APENAS o contexto fornecido.
-            Se a resposta não estiver no contexto, diga "Não sei".</s>
-            <|user|>
+            """Você é um assistente médico hospitalar.
+    
+            REGRAS:
+            - Responda curto e objetivo
+            - Use apenas o contexto
+            - Máximo 5 linhas
+    
             Contexto:
             {context}
-
-            Pergunta: {question}</s>
-            <|assistant|>
-            """
+    
+            Pergunta:
+            {question}
+    
+            Resposta:"""
         )
-
         prompt = prompt_template.format(context=context_text, question=query)
 
         # Gera a resposta
         try:
-            response = self.llm.invoke(prompt)
+            raw_response = self.llm.invoke(prompt)
+
+            if isinstance(raw_response, dict):
+                response = raw_response.get("text") or raw_response.get("generated_text") or str(raw_response)
+            else:
+                response = str(raw_response)
         except Exception as e:
             response = f"Erro na geração: {str(e)}"
 

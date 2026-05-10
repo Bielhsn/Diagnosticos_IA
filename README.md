@@ -106,6 +106,8 @@ Segurança (Guardrails):
 
 Implementação de regras rígidas de segurança. O assistente bloqueia solicitações de prescrição direta (ex: "Prescrever Vancomicina"), orientando o usuário a validar com um humano, conforme princípios de IA Responsável.
 
+![Dúvida de diagnósticos](images/pergunta_IA.png)
+
 ## 4. Fase 4: Sistema Multimodal de Saúde da Mulher
 
 Nesta fase, o projeto foi expandido para um sistema multimodal especializado em **Saúde da Mulher**, integrando análise de **vídeo e áudio clínico** para identificação precoce de sinais de risco relacionados ao bem-estar físico e psicológico feminino.
@@ -296,6 +298,9 @@ Enquanto o **vídeo** captura sinais não verbais e postura corporal, o **áudio
 Essa combinação possibilita uma análise mais abrangente do estado emocional e comportamental feminino, reduzindo limitações de abordagens baseadas em apenas uma fonte de informação.
 
 O sistema atua como um mecanismo de **triagem preventiva especializada**, auxiliando profissionais de saúde na identificação precoce de casos que podem demandar acompanhamento clínico adicional.
+
+![Consulta](images/video_consulta.png)
+
 ## 5. Conclusão Geral do Projeto
 
 Análise Preditiva: Onde a qualidade dos dados dita o sucesso (Fase 1).

@@ -3,7 +3,7 @@
 from src.medical_assistant.generator import gerar_dados_hospitalares
 from src.medical_assistant.rag_engine import MedicalAssistantRAG
 import os
-
+import textwrap
 
 def main():
     print("--- INICIANDO SISTEMA DE ASSISTENTE MÉDICO (FASE 3) ---")
@@ -35,7 +35,8 @@ def main():
 
         result = assistant.get_response(query)
 
-        print(f"\n🤖 Assistente IA: {result['resposta']}")
+        print("\n🤖 Assistente IA:\n")
+        print(textwrap.fill(result['resposta'], width=100))
 
         # Verifica e imprime fontes se existirem
         if 'fontes' in result and result['fontes']:
